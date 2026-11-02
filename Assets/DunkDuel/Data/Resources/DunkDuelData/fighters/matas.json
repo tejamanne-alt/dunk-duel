@@ -1,0 +1,52 @@
+{
+  "id": "matas",
+  "name": "Matas Vilkas",
+  "nickname": "Landslide",
+  "mastery": "postControl",
+  "height": "2.16",
+  "attributes": { "speed": 3, "handles": 4, "range": 4, "finishing": 8, "defense": 8, "strength": 9 },
+  "reachFactor": "1.30",
+  "pushboxHalfWidth": "0.36",
+  "jumpRiseFrames": 12,
+  "jumperGatherFrames": 31,
+  "finishGatherFrames": 24,
+  "perfectFrames": 6,
+  "comboLinks": 3,
+  "resistBonus": "0.30",
+  "bumpVulnerability": "0",
+  "masteryParams": { "canBackDown": true },
+  "trickForward": {
+    "id": "seismicDropStep", "name": "Seismic Drop-Step", "kind": "offenseTrick", "behavior": "dropStep",
+    "startup": 10, "active": 10, "recovery": 14,
+    "cancelStart": 16, "cancelEnd": 34,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 10, "moveEnd": 20, "moveDistance": "1.3",
+    "power": "0", "reach": "0.5", "minRange": "0", "maxRange": "4.0",
+    "canDrawCharge": false, "slipThrough": true, "whiffRecovery": 0,
+    "params": { "knockbackDistance": "0.7", "balanceDamage": "22", "ampedNoContestFrames": 20 }
+  },
+  "trickBack": {
+    "id": "graniteHook", "name": "Granite Hook", "kind": "offenseTrick", "behavior": "graniteHook",
+    "startup": 16, "active": 0, "recovery": 14,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "0", "minRange": "0", "maxRange": "3.8",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "releaseFactor": "1.45", "ampedMaxRange": "6.5", "peakFrames": 18 }
+  },
+  "trickDefense": {
+    "id": "rimLock", "name": "Rim Lock", "kind": "defenseTrick", "behavior": "rimLock",
+    "startup": 10, "active": 0, "recovery": 0,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "0", "minRange": "0", "maxRange": "2.4",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 20,
+    "params": { "duration": 120, "blockBonus": "0.35", "autoContestRange": "2.2", "ampedCatch": true }
+  },
+  "finisher": { "id": "tectonic", "name": "Tectonic", "zoneMin": "-3.4", "zoneMax": "-0.8", "frames": 140, "denyStart": 86, "denyFrames": 4, "endX": "-0.4" }
+}

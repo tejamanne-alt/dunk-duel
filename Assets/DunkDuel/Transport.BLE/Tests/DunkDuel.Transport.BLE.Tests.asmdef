@@ -1,0 +1,26 @@
+{
+  "name": "DunkDuel.Transport.BLE.Tests",
+  "rootNamespace": "DunkDuel.Transport.BLE.Tests",
+  "references": [
+    "DunkDuel.Transport.BLE",
+    "DunkDuel.Net",
+    "DunkDuel.Sim",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

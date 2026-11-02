@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>Dunk Duel Graybox</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="loading" class="overlay">
+    <div class="panel center">
+      <div class="logo">DUNK<span>DUEL</span></div>
+      <p id="loadText">Loading the deterministic sim…</p>
+    </div>
+  </div>
+
+  <div id="menu" class="overlay hidden">
+    <div class="panel">
+      <div class="logo">DUNK<span>DUEL</span></div>
+      <p class="sub">Graybox playtest · same C# sim and CPU as the Unity build, compiled to WebAssembly</p>
+      <div class="row">
+        <div class="col">
+          <h3>You</h3>
+          <div id="pickP0" class="cards"></div>
+        </div>
+        <div class="col">
+          <h3>Opponent</h3>
+          <div id="pickP1" class="cards"></div>
+        </div>
+      </div>
+      <div class="row opts">
+        <label>CPU tier <select id="tier"></select></label>
+        <label>Court <select id="court"></select></label>
+        <label>Mode
+          <select id="mode">
+            <option value="play">Play vs CPU</option>
+            <option value="watch">Watch CPU vs CPU</option>
+            <option value="training">Training</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="simple" /> Simple mode</label>
+      </div>
+      <div class="row">
+        <button id="start" class="big">PLAY</button>
+      </div>
+      <div class="help">
+        <b>Keys</b>: ←→ move · ↓ wall/protect (↓→ post up) · <b>J</b> shoot (hold, release at the peak) · <b>K</b> shake (with direction) ·
+        <b>L</b> trick (→ forward, ← back; hold <b>U</b> for Amped) · <b>Space</b> turbo · <b>I</b> finisher / deny · <b>H</b> hitboxes · <b>Esc</b> menu.
+        Touch: left thumb stick, right buttons; swipe up from TRICK for Amped.
+      </div>
+    </div>
+  </div>
+
+  <div id="touch" class="hidden">
+    <div id="stickZone"><div id="stickBase"><div id="stickKnob"></div></div></div>
+    <div id="buttons">
+      <button data-b="Finisher" id="btnFin">FIN</button>
+      <button data-b="Trick" id="btnTrick">TRICK</button>
+      <button data-b="Shake">SHAKE</button>
+      <button data-b="Turbo">TURBO</button>
+      <button data-b="Shoot" class="primary">SHOOT</button>
+    </div>
+    <button id="btnMenu">☰</button>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

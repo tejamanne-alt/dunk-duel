@@ -1,0 +1,52 @@
+{
+  "id": "meera",
+  "name": "Meera Rao",
+  "nickname": "Monsoon",
+  "mastery": "rhythm",
+  "height": "1.76",
+  "attributes": { "speed": 6, "handles": 6, "range": 9, "finishing": 4, "defense": 7, "strength": 4 },
+  "reachFactor": "1.34",
+  "pushboxHalfWidth": "0.24",
+  "jumpRiseFrames": 11,
+  "jumperGatherFrames": 30,
+  "finishGatherFrames": 22,
+  "perfectFrames": 8,
+  "comboLinks": 3,
+  "resistBonus": "0",
+  "bumpVulnerability": "0.4",
+  "masteryParams": { "rhythmMaxStacks": 3, "rhythmFramesPerStack": 3 },
+  "trickForward": {
+    "id": "drizzle", "name": "Drizzle", "kind": "offenseTrick", "behavior": "drizzle",
+    "startup": 10, "active": 0, "recovery": 14,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 10, "moveDistance": "-0.9",
+    "power": "0", "reach": "0", "minRange": "2.0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "gatherReduction": 8, "ampedContestScale": "0.5", "ampedFadeDistance": "0.6" }
+  },
+  "trickBack": {
+    "id": "monsoonStep", "name": "Monsoon Step", "kind": "offenseTrick", "behavior": "monsoonStep",
+    "startup": 8, "active": 10, "recovery": 14,
+    "cancelStart": 12, "cancelEnd": 32,
+    "baitStart": 1, "baitEnd": 10,
+    "exposedStart": 3, "exposedEnd": 5,
+    "moveStart": 2, "moveEnd": 12, "moveDistance": "-2.0",
+    "power": "20", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "ampedSecondDistance": "1.2", "ampedBitePower": "25" }
+  },
+  "trickDefense": {
+    "id": "undercurrent", "name": "Undercurrent", "kind": "defenseTrick", "behavior": "undercurrent",
+    "startup": 9, "active": 4, "recovery": 0,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "1.6", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 26,
+    "params": { "ampedSkipClear": true }
+  },
+  "finisher": { "id": "cloudburst", "name": "Cloudburst", "zoneMin": "-9.6", "zoneMax": "-6.9", "frames": 160, "denyStart": 104, "denyFrames": 4, "endX": "-7.4" }
+}

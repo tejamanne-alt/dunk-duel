@@ -1,0 +1,52 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  headless:
+    name: Sim, AI, netcode, gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build (analyzers, warnings as errors)
+        run: dotnet build Headless/DunkDuel.Headless.sln -c Release
+      - name: Format check
+        run: dotnet format whitespace Headless/DunkDuel.Headless.sln --verify-no-changes
+      - name: Sim code hash is current
+        run: dotnet run -c Release --project Tools/SimTool -- hash --check
+      - name: Tests (rules, determinism, static gates, netcode soak, BLE framing)
+        run: dotnet test Headless/tests/DunkDuel.Tests -c Release --no-build
+      - name: Balance Lab gate
+        run: dotnet run -c Release --project Tools/BalanceLab -- --matches 500 --ladder-matches 400 --json balance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: balance-report
+          path: balance.json
+
+  blender-rules:
+    name: Blender pipeline rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest
+      - run: python -m pytest Tools/Blender/tests -q
+
+  # Unity EditMode tests need a Unity license secret (UNITY_LICENSE) for game-ci; enable once one is configured.
+  # unity-editmode:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: game-ci/unity-test-runner@v4
+  #       env:
+  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  #       with:
+  #         testMode: editmode

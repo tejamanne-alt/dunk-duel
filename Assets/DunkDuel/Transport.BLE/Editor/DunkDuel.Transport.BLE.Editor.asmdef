@@ -1,0 +1,18 @@
+{
+  "name": "DunkDuel.Transport.BLE.Editor",
+  "rootNamespace": "DunkDuel.Transport.BLE.Editor",
+  "references": [
+    "DunkDuel.Transport.BLE"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

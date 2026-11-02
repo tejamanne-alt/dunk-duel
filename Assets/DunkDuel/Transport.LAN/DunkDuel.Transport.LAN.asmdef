@@ -1,0 +1,14 @@
+{
+  "name": "DunkDuel.Transport.LAN",
+  "rootNamespace": "DunkDuel.Transport.LAN",
+  "references": ["DunkDuel.Net", "DunkDuel.Sim"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

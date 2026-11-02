@@ -1,0 +1,52 @@
+{
+  "id": "kofi",
+  "name": "Kofi Mensah",
+  "nickname": "Liftoff",
+  "mastery": "hangTime",
+  "height": "1.96",
+  "attributes": { "speed": 7, "handles": 6, "range": 4, "finishing": 9, "defense": 5, "strength": 5 },
+  "reachFactor": "1.34",
+  "pushboxHalfWidth": "0.29",
+  "jumpRiseFrames": 18,
+  "jumperGatherFrames": 33,
+  "finishGatherFrames": 21,
+  "perfectFrames": 6,
+  "comboLinks": 3,
+  "resistBonus": "0",
+  "bumpVulnerability": "0",
+  "masteryParams": { "hangFrames": 8, "hangNudge": "0.35" },
+  "trickForward": {
+    "id": "launchStep", "name": "Launch Step", "kind": "offenseTrick", "behavior": "launchStep",
+    "startup": 14, "active": 0, "recovery": 18,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 5,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "0", "minRange": "2.2", "maxRange": "4.0",
+    "canDrawCharge": true, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "takeoffDistance": "1.9", "ampedMaxRange": "5.8", "ampedTakeoffDistance": "4.2", "ampedBalanceDrain": "30", "approachSpeedScale": "2.6" }
+  },
+  "trickBack": {
+    "id": "doubleClutch", "name": "Double Clutch", "kind": "offenseTrick", "behavior": "doubleClutch",
+    "startup": 8, "active": 0, "recovery": 16,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 8, "baitEnd": 16,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "20", "reach": "0", "minRange": "0", "maxRange": "2.4",
+    "canDrawCharge": true, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "pumpDelay": 8, "ampedUncontestableFrames": 6 }
+  },
+  "trickDefense": {
+    "id": "chaseDown", "name": "Chase-Down", "kind": "defenseTrick", "behavior": "chaseDown",
+    "startup": 8, "active": 30, "recovery": 0,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 24,
+    "params": { "sprintSpeed": "8.5", "ampedSprintSpeed": "10", "blockBonus": "0.25", "ampedBlockBonus": "0.45", "triggerDistance": "1.6" }
+  },
+  "finisher": { "id": "orbit", "name": "Orbit", "zoneMin": "-5.4", "zoneMax": "-3.2", "frames": 150, "denyStart": 96, "denyFrames": 4, "endX": "-0.4" }
+}

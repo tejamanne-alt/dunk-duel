@@ -1,0 +1,27 @@
+{
+  "name": "DunkDuel.UI",
+  "rootNamespace": "DunkDuel.UI",
+  "references": [
+    "DunkDuel.Sim",
+    "DunkDuel.AI",
+    "DunkDuel.Net",
+    "DunkDuel.Transport.LAN",
+    "DunkDuel.Transport.BLE",
+    "DunkDuel.Presentation",
+    "UnityEngine.UI",
+    "Unity.TextMeshPro",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    { "name": "com.unity.inputsystem", "expression": "1.0.0", "define": "DD_INPUTSYSTEM" },
+    { "name": "com.unity.render-pipelines.universal", "expression": "14.0.0", "define": "DD_URP" }
+  ],
+  "noEngineReferences": false
+}

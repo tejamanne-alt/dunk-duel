@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Same-Wi-Fi / hotspot UDP transport. Sources: Assets/DunkDuel/Transport.LAN. Depends on Net. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DunkDuel.Transport.LAN</AssemblyName>
+    <RootNamespace>DunkDuel.Transport.LAN</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(UnitySrc)Transport.LAN\**\*.cs" LinkBase="Transport.LAN" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DunkDuel.Net\DunkDuel.Net.csproj" />
+    <ProjectReference Include="..\DunkDuel.Sim\DunkDuel.Sim.csproj" />
+  </ItemGroup>
+</Project>

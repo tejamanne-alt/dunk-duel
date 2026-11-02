@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- BLE transport C# (framing, records, ring, heartbeat, transport state machine). Native backends are compiled
+       out here (UNITY_IOS / UNITY_ANDROID undefined), so the platform-free logic runs in CI. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DunkDuel.Transport.BLE</AssemblyName>
+    <RootNamespace>DunkDuel.Transport.BLE</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(UnitySrc)Transport.BLE\*.cs" LinkBase="Transport.BLE" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DunkDuel.Net\DunkDuel.Net.csproj" />
+    <ProjectReference Include="..\DunkDuel.Sim\DunkDuel.Sim.csproj" />
+  </ItemGroup>
+</Project>

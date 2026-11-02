@@ -1,0 +1,104 @@
+{
+  "_note": "Nine courts in three tiers. Presentation only: every court plays identically. Palettes avoid the fighters' identity hues (saffron/teal, indigo/silver, magenta/cyan, emerald/bronze); fighters carry their own rim light. Signage is fictional.",
+  "courts": [
+    {
+      "id": "monsoon_bazaar", "name": "Monsoon Bazaar", "tier": "street", "outdoor": true, "night": true,
+      "blurb": "An old-city market lane on a monsoon night: bulb strings and tarps, steaming chai kettles, scooters, a crowd under umbrellas, neon on wet stone, a hoop bolted to a heritage arch.",
+      "finisherMoment": "The downpour turns to a sheet, lightning backlights the dunker, umbrellas fly up.",
+      "weather": "rain", "setPiece": "downpour", "crowdStyle": "umbrellas", "crowdDensity": 0.6,
+      "music": "dhol", "tempo": 96, "reverb": "Alley",
+      "floor": "#3B3F45", "smoothness": 0.78, "lines": "#E8E2D0", "paint": "#5A3A34", "apron": "#2A2C30",
+      "wall": "#4A3F38", "midGround": "#3E3530", "skyTop": "#0E1018", "skyBottom": "#2A2633",
+      "accent": "#FFD9A0", "accent2": "#C8443A", "ambient": "#3A3A48", "fog": "#2E2C36", "fogDensity": 0.025,
+      "keyLight": "#C9D4E8", "keyIntensity": 0.6, "keyEuler": [55, -35, 0]
+    },
+    {
+      "id": "the_tracks", "name": "The Tracks", "tier": "street", "outdoor": true, "night": false,
+      "blurb": "A fenced concrete court under an elevated train at summer dusk: heat haze, an open hydrant, a DJ on a folding table, fans pressed against the chain-link.",
+      "finisherMoment": "A train passes on cue, sparks shower from the rails, fans climb the fence.",
+      "weather": "haze", "setPiece": "train", "crowdStyle": "fence", "crowdDensity": 0.7,
+      "music": "boombap", "tempo": 90, "reverb": "City",
+      "floor": "#7A7470", "smoothness": 0.2, "lines": "#F2EFE6", "paint": "#8C5A4A", "apron": "#5E5955",
+      "wall": "#6B4E3D", "midGround": "#4E3B33", "skyTop": "#4A3B4F", "skyBottom": "#C98F78",
+      "accent": "#FFE7B0", "accent2": "#B83C2E", "ambient": "#6A5A60", "fog": "#8A6E66", "fogDensity": 0.012,
+      "keyLight": "#FFC49A", "keyIntensity": 0.9, "keyEuler": [18, -60, 0]
+    },
+    {
+      "id": "concrete_coast", "name": "Concrete Coast", "tier": "street", "outdoor": true, "night": false,
+      "blurb": "A boardwalk court at bright midday, the one daylight street: open sea, gulls, skaters in a bowl, food trucks, palm shadows, sun glare on the backboard.",
+      "finisherMoment": "A wave bursts over the seawall in slow motion and gulls scatter.",
+      "weather": "none", "setPiece": "wave", "crowdStyle": "sidewalk", "crowdDensity": 0.45,
+      "music": "surf", "tempo": 100, "reverb": "Plain",
+      "floor": "#BDB4A6", "smoothness": 0.15, "lines": "#FFFFFF", "paint": "#C26B5A", "apron": "#A89F92",
+      "wall": "#D8CFC0", "midGround": "#9C8E7C", "skyTop": "#6FA3D6", "skyBottom": "#CFE3F0",
+      "accent": "#5FA0C8", "accent2": "#F3E9D2", "ambient": "#B8C4CC", "fog": "#D7E4EC", "fogDensity": 0.004,
+      "keyLight": "#FFF6E5", "keyIntensity": 1.25, "keyEuler": [62, -25, 0]
+    },
+    {
+      "id": "rivalry_night", "name": "Rivalry Night", "tier": "school", "outdoor": false, "night": true,
+      "blurb": "A packed high-school gym: a face-painted student section, cardboard heads, a drumline and brass band, a cheer squad, hand-painted banners, warm gym light.",
+      "finisherMoment": "Students surge to the sideline and the band hits the fight song.",
+      "weather": "none", "setPiece": "surge", "crowdStyle": "bleachers", "crowdDensity": 0.95,
+      "music": "brass", "tempo": 112, "reverb": "Auditorium",
+      "floor": "#C99A62", "smoothness": 0.55, "lines": "#2B2B2B", "paint": "#8E2F2F", "apron": "#A5784A",
+      "wall": "#7E6E62", "midGround": "#5C4A40", "skyTop": "#2B2522", "skyBottom": "#4A3D34",
+      "accent": "#F2E6C8", "accent2": "#8E2F2F", "ambient": "#7A6656", "fog": "#3A302A", "fogDensity": 0.01,
+      "keyLight": "#FFE2B8", "keyIntensity": 1.1, "keyEuler": [70, -20, 0]
+    },
+    {
+      "id": "lights_out", "name": "Lights Out", "tier": "school", "outdoor": false, "night": true,
+      "blurb": "An empty school gym after hours in a thunderstorm: half the lights off, rain streaking the high windows, a janitor's cart, stacked chairs, echoing squeaks.",
+      "finisherMoment": "Lightning blacks out the gym, red emergency lights glow, then the light banks clank back on one by one.",
+      "weather": "storm", "setPiece": "blackout", "crowdStyle": "sparse", "crowdDensity": 0.05,
+      "music": "storm", "tempo": 84, "reverb": "Hangar",
+      "floor": "#8C7458", "smoothness": 0.5, "lines": "#3A3A3A", "paint": "#4E5054", "apron": "#6E5C48",
+      "wall": "#3C3A3A", "midGround": "#2C2A2A", "skyTop": "#0C0D10", "skyBottom": "#1E2024",
+      "accent": "#B5C2D6", "accent2": "#C02A2A", "ambient": "#2A2C33", "fog": "#16171B", "fogDensity": 0.02,
+      "keyLight": "#9FB0C8", "keyIntensity": 0.45, "keyEuler": [65, 20, 0]
+    },
+    {
+      "id": "campus_quad", "name": "Campus Quad", "tier": "school", "outdoor": true, "night": false,
+      "blurb": "University outdoor courts at golden hour in autumn: drifting maple leaves, students on the grass, bikes, a clock tower, a marching band rehearsing in the distance.",
+      "finisherMoment": "A gust sends a storm of leaves across the court and students rush the fence.",
+      "weather": "leaves", "setPiece": "leafstorm", "crowdStyle": "grass", "crowdDensity": 0.35,
+      "music": "marching", "tempo": 104, "reverb": "Forest",
+      "floor": "#6C7276", "smoothness": 0.18, "lines": "#F4F1E8", "paint": "#A65A3A", "apron": "#6B6A45",
+      "wall": "#8A7A5C", "midGround": "#5D5238", "skyTop": "#5A6E8C", "skyBottom": "#E8C7A0",
+      "accent": "#C8502A", "accent2": "#E7D6A8", "ambient": "#9A8A78", "fog": "#C9B08C", "fogDensity": 0.006,
+      "keyLight": "#FFD7A3", "keyIntensity": 1.15, "keyEuler": [22, -55, 0]
+    },
+    {
+      "id": "old_barn", "name": "The Old Barn", "tier": "pro", "outdoor": false, "night": true,
+      "blurb": "A historic fieldhouse: wooden bleachers, iron trusses, retired jerseys, a flip-digit scoreboard, an organist, warm tungsten light through dust.",
+      "finisherMoment": "The backboard shatters in slow motion and the organ plays a sting.",
+      "weather": "dust", "setPiece": "shatter", "crowdStyle": "wooden", "crowdDensity": 0.75,
+      "music": "organ", "tempo": 88, "reverb": "Concerthall",
+      "floor": "#B98A55", "smoothness": 0.45, "lines": "#3A2A1E", "paint": "#6E3B2A", "apron": "#8E6640",
+      "wall": "#5A3E2A", "midGround": "#3E2C20", "skyTop": "#1E1611", "skyBottom": "#3C2B20",
+      "accent": "#FFD9A6", "accent2": "#7A2E24", "ambient": "#6A5040", "fog": "#4A3828", "fogDensity": 0.018,
+      "keyLight": "#FFCE96", "keyIntensity": 1.0, "keyEuler": [68, -15, 0]
+    },
+    {
+      "id": "glass_court", "name": "Glass Court", "tier": "pro", "outdoor": false, "night": true,
+      "blurb": "An exhibition arena with an LED glass floor: court lines draw themselves at round start, footsteps ripple, the floor glows in the leader's color under chrome-white light and drone cameras.",
+      "finisherMoment": "The whole floor becomes the Finisher's motif: sunburst, rain ripples, glitch blocks or fissures.",
+      "weather": "none", "setPiece": "motif", "crowdStyle": "glass", "crowdDensity": 0.65,
+      "music": "electro", "tempo": 120, "reverb": "Arena",
+      "floor": "#0E1116", "smoothness": 0.92, "lines": "#E8F0FF", "paint": "#1A1F28", "apron": "#0A0C10",
+      "wall": "#1C2028", "midGround": "#141820", "skyTop": "#05070A", "skyBottom": "#121722",
+      "accent": "#F2F6FF", "accent2": "#8A96A8", "ambient": "#3A4250", "fog": "#0E1218", "fogDensity": 0.01,
+      "keyLight": "#F4F7FF", "keyIntensity": 1.2, "keyEuler": [75, 0, 0]
+    },
+    {
+      "id": "the_crown", "name": "The Crown", "tier": "pro", "outdoor": false, "night": true,
+      "blurb": "A sold-out finals arena: championship banners, steel-blue light cut by spotlights and haze, glossy reflective hardwood, courtside photographers; the jumbotron replays your last highlight.",
+      "finisherMoment": "Lights drop to one spotlight, then pyro columns erupt; confetti on match point.",
+      "weather": "haze", "setPiece": "pyro", "crowdStyle": "arena", "crowdDensity": 1.0,
+      "music": "anthem", "tempo": 100, "reverb": "Arena",
+      "floor": "#A87848", "smoothness": 0.86, "lines": "#F5F5F5", "paint": "#36475A", "apron": "#20262E",
+      "wall": "#1A2230", "midGround": "#121822", "skyTop": "#05080D", "skyBottom": "#1B2A3D",
+      "accent": "#DCE6F2", "accent2": "#C9A43A", "ambient": "#2E3A4A", "fog": "#1A2533", "fogDensity": 0.022,
+      "keyLight": "#D8E4F4", "keyIntensity": 1.1, "keyEuler": [72, -10, 0]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<!--
+  IL2CPP managed code stripping must keep the Dunk Duel assemblies intact:
+  the data-table binder (DunkDuel.Sim.Data.TableBinder) sets fields by reflection,
+  so fields that are only written through reflection must never be stripped.
+-->
+<linker>
+  <assembly fullname="DunkDuel.Sim" preserve="all" />
+  <assembly fullname="DunkDuel.AI" preserve="all" />
+  <assembly fullname="DunkDuel.Net" preserve="all" />
+  <assembly fullname="DunkDuel.Transport.LAN" preserve="all" />
+  <assembly fullname="DunkDuel.Transport.BLE" preserve="all" />
+  <assembly fullname="DunkDuel.Presentation" preserve="all" />
+  <assembly fullname="DunkDuel.UI" preserve="all" />
+</linker>

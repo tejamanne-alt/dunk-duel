@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <!--
+    Web graybox: the real DunkDuel.Sim + DunkDuel.AI compiled to WebAssembly with a canvas front end.
+    A developer tool for instant playtests and visual review; the shipping client is the Unity project.
+    Build: dotnet publish Tools/WebGraybox -c Release   (output: bin/Release/net8.0/publish/wwwroot)
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>11.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>DunkDuel.Web</RootNamespace>
+    <AssemblyName>DunkDuel.WebGraybox</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <WasmEnableWebcil>true</WasmEnableWebcil>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <NuGetAudit>false</NuGetAudit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Assets\DunkDuel\Sim\**\*.cs" LinkBase="Sim" />
+    <Compile Include="..\..\Assets\DunkDuel\AI\**\*.cs" LinkBase="AI" />
+    <EmbeddedResource Include="..\..\Assets\DunkDuel\Data\Resources\DunkDuelData\**\*.json" LinkBase="Data" LogicalName="DunkDuelData/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The binder reads table fields through reflection: keep the sim's metadata through trimming. -->
+    <TrimmerRootAssembly Include="DunkDuel.WebGraybox" />
+  </ItemGroup>
+</Project>

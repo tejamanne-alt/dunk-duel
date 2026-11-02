@@ -1,0 +1,16 @@
+T:System.Single;Determinism: no float in DunkDuel.Sim, use Fix
+T:System.Double;Determinism: no double in DunkDuel.Sim, use Fix
+T:System.Decimal;Determinism: no decimal in DunkDuel.Sim, use Fix
+T:System.Random;Determinism: use DunkDuel.Sim.Rng with the match seed
+T:System.DateTime;Determinism: the sim has no wall clock
+T:System.DateTimeOffset;Determinism: the sim has no wall clock
+T:System.Diagnostics.Stopwatch;Determinism: the sim has no wall clock
+T:System.Environment;Determinism: no machine state in the sim
+T:System.HashCode;Determinism: System.HashCode is randomized per process
+M:System.String.GetHashCode;Determinism: string hashes are randomized per process
+M:System.Object.GetHashCode;Determinism: use StateHash, not runtime hash codes
+T:System.Threading.Thread;The sim is single-threaded
+T:System.Threading.Tasks.Task;The sim is single-threaded
+T:System.Collections.Generic.Dictionary`2;Determinism: iteration order is not part of the contract, use arrays
+T:System.Collections.Generic.HashSet`1;Determinism: iteration order is not part of the contract, use arrays
+N:UnityEngine;The sim is engine-free

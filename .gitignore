@@ -1,0 +1,49 @@
+# ---- Unity ----
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/Assets/Plugins/Editor/JetBrains*
+/Assets/AddressableAssetsData/*/*.bin*
+/Assets/StreamingAssets/aa*
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+*.apk
+*.aab
+*.unitypackage
+*.app
+# Unity-generated IDE files at the project root
+/*.csproj
+/*.sln
+/*.slnx
+.vs/
+.idea/
+.vscode/
+*.user
+*.userprefs
+
+# ---- .NET headless build ----
+**/bin/
+**/obj/
+TestResults/
+*.trx
+
+# ---- Tools output ----
+/Tools/WebGraybox/dist/
+/Tools/BalanceLab/out/
+__pycache__/
+*.pyc
+.pytest_cache/
+/artifacts/
+
+# ---- OS ----
+.DS_Store
+Thumbs.db

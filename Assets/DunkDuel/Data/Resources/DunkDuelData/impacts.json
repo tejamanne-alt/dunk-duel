@@ -1,0 +1,14 @@
+{
+  "_note": "Impact recipes from the feel table. hitStop and slow motion are sim timing (frames at 60 fps); camera, callout and crowd ids are read by presentation.",
+  "impacts": [
+    { "event": "steal", "hitStop": 6, "slowFrames": 0, "slowDiv": 1, "camera": "nudge", "callout": "PICKED!", "crowd": "pop" },
+    { "event": "charge", "hitStop": 8, "slowFrames": 0, "slowDiv": 1, "camera": "snapZoom", "callout": "CHARGE!", "crowd": "pop" },
+    { "event": "ankleBreak", "hitStop": 8, "slowFrames": 12, "slowDiv": 2, "camera": "dutchTilt", "callout": "ANKLES!", "crowd": "erupt" },
+    { "event": "block", "hitStop": 10, "slowFrames": 0, "slowDiv": 1, "camera": "punchIn", "callout": "REJECTED!", "crowd": "erupt" },
+    { "event": "posterizer", "hitStop": 14, "slowFrames": 18, "slowDiv": 2, "camera": "bigPunchIn", "callout": "POSTERIZED!", "crowd": "frenzy" },
+    { "event": "splash", "hitStop": 4, "slowFrames": 0, "slowDiv": 1, "camera": "netWhip", "callout": "SPLASH!", "crowd": "erupt" },
+    { "event": "denied", "hitStop": 12, "slowFrames": 0, "slowDiv": 1, "camera": "hardCut", "callout": "DENIED!", "crowd": "erupt" },
+    { "event": "buzzerBeater", "hitStop": 0, "slowFrames": 1, "slowDiv": 3, "camera": "followBall", "callout": "BUZZER!", "crowd": "frenzy" },
+    { "event": "shotClockViolation", "hitStop": 0, "slowFrames": 0, "slowDiv": 1, "camera": "none", "callout": "SHOT CLOCK", "crowd": "groan" }
+  ]
+}

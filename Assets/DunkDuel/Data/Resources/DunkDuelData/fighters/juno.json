@@ -1,0 +1,52 @@
+{
+  "id": "juno",
+  "name": "Juno Park",
+  "nickname": "Glitch",
+  "mastery": "handlesCombo",
+  "height": "1.68",
+  "attributes": { "speed": 8, "handles": 9, "range": 5, "finishing": 5, "defense": 6, "strength": 3 },
+  "reachFactor": "1.32",
+  "pushboxHalfWidth": "0.25",
+  "jumpRiseFrames": 15,
+  "jumperGatherFrames": 30,
+  "finishGatherFrames": 13,
+  "perfectFrames": 6,
+  "comboLinks": 5,
+  "resistBonus": "0",
+  "bumpVulnerability": "0",
+  "masteryParams": {},
+  "trickForward": {
+    "id": "frameSkip", "name": "Frame Skip", "kind": "offenseTrick", "behavior": "frameSkip",
+    "startup": 8, "active": 8, "recovery": 14,
+    "cancelStart": 16, "cancelEnd": 30,
+    "baitStart": 1, "baitEnd": 8,
+    "exposedStart": 4, "exposedEnd": 6,
+    "moveStart": 8, "moveEnd": 16, "moveDistance": "1.2",
+    "power": "18", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": true, "whiffRecovery": 0,
+    "params": { "ampedRepeat": 2 }
+  },
+  "trickBack": {
+    "id": "lagSpike", "name": "Lag Spike", "kind": "offenseTrick", "behavior": "lagSpike",
+    "startup": 10, "active": 12, "recovery": 14,
+    "cancelStart": 12, "cancelEnd": 36,
+    "baitStart": 1, "baitEnd": 20,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "12", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0,
+    "params": { "lagFrames": 6, "ampedLagFrames": 12, "ampedBalanceDamage": "18" }
+  },
+  "trickDefense": {
+    "id": "pickpocket", "name": "Pickpocket", "kind": "defenseTrick", "behavior": "pickpocket",
+    "startup": 10, "active": 8, "recovery": 0,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "0.9", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 28,
+    "params": { "dashDistance": "2.0", "ampedReach": "1.2" }
+  },
+  "finisher": { "id": "overclock", "name": "Overclock", "zoneMin": "-7.4", "zoneMax": "-4.4", "frames": 170, "denyStart": 112, "denyFrames": 4, "endX": "-0.6" }
+}

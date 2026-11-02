@@ -1,0 +1,24 @@
+<Project>
+  <!--
+    Headless build of the engine-free assemblies. The C# sources live under Assets/ so Unity and
+    .NET compile the exact same files. Language level is pinned to C# 9 (what Unity 6 ships) and
+    the libraries target netstandard2.1 (Unity's API compatibility level), so anything that builds
+    here also builds in the Editor.
+  -->
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>5</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <RepoRoot>$(MSBuildThisFileDirectory)..\</RepoRoot>
+    <UnitySrc>$(RepoRoot)Assets\DunkDuel\</UnitySrc>
+    <!-- Keep NuGet audit quiet in offline-ish CI containers. -->
+    <NuGetAudit>false</NuGetAudit>
+  </PropertyGroup>
+</Project>

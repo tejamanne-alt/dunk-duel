@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Runs the Unity EditMode test sources (Assets/DunkDuel/Tests/EditMode) headless with NUnit 3,
+    plus a few checks that need full .NET (IL scan of DunkDuel.Sim, timing benchmarks).
+    NUnit is pinned to 3.x because Unity's Test Framework ships NUnit 3 (classic Assert API).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>DunkDuel.Tests</AssemblyName>
+    <RootNamespace>DunkDuel.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(UnitySrc)Tests\EditMode\**\*.cs" LinkBase="EditMode" />
+    <Compile Include="$(UnitySrc)Transport.BLE\Tests\**\*.cs" LinkBase="Transport.BLE.Tests" />
+    <Compile Include="Headless\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="8.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DunkDuel.Sim\DunkDuel.Sim.csproj" />
+    <ProjectReference Include="..\..\src\DunkDuel.AI\DunkDuel.AI.csproj" />
+    <ProjectReference Include="..\..\src\DunkDuel.Net\DunkDuel.Net.csproj" />
+    <ProjectReference Include="..\..\src\DunkDuel.Transport.LAN\DunkDuel.Transport.LAN.csproj" />
+    <ProjectReference Include="..\..\src\DunkDuel.Transport.BLE\DunkDuel.Transport.BLE.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Balance Lab: headless CPU-vs-CPU runner. Plays every fighter pairing at a CPU tier (Legend by default)
+    from both sides and fails (exit code 1) if any pairing falls outside 45-55%. Also runs the tier ladder.
+      dotnet run -c Release (project Tools/BalanceLab) then pass: matches N, tier T (see README)
+  -->
+  <Import Project="..\..\Headless\Directory.Build.props" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>DunkDuel.BalanceLab</AssemblyName>
+    <RootNamespace>DunkDuel.Tools</RootNamespace>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <TieredPGO>true</TieredPGO>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Headless\src\DunkDuel.Sim\DunkDuel.Sim.csproj" />
+    <ProjectReference Include="..\..\Headless\src\DunkDuel.AI\DunkDuel.AI.csproj" />
+  </ItemGroup>
+</Project>

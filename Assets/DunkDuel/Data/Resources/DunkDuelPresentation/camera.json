@@ -1,0 +1,19 @@
+{
+  "_note": "Gameplay camera framing and the impact-recipe camera moves from the feel table. Distances in meters, durations in seconds.",
+  "framing": {
+    "fov": 30, "minDistance": 9.5, "maxDistance": 17.5, "height": 2.3, "lookHeight": 1.85,
+    "paddingX": 2.1, "paddingY": 1.0, "smooth": 0.2, "pitch": 3,
+    "finisherDistance": 6.0, "finisherHeight": 1.7, "reducedMotionScale": 0.25
+  },
+  "recipes": [
+    { "id": "nudge", "kind": "shake", "duration": 0.16, "amplitude": 0.07, "frequency": 32 },
+    { "id": "snapZoom", "kind": "zoom", "duration": 0.35, "zoom": 0.18, "amplitude": 0.02 },
+    { "id": "dutchTilt", "kind": "tilt", "duration": 0.6, "tilt": 9, "zoom": 0.06 },
+    { "id": "punchIn", "kind": "zoom", "duration": 0.32, "zoom": 0.14, "amplitude": 0.04 },
+    { "id": "bigPunchIn", "kind": "zoom", "duration": 0.75, "zoom": 0.3, "amplitude": 0.09 },
+    { "id": "netWhip", "kind": "whip", "duration": 0.45, "zoom": 0.1 },
+    { "id": "hardCut", "kind": "cut", "duration": 0.05 },
+    { "id": "followBall", "kind": "follow", "duration": 1.6, "zoom": 0.08 },
+    { "id": "none", "kind": "none", "duration": 0 }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "DunkDuel.Presentation",
+  "rootNamespace": "DunkDuel.Presentation",
+  "references": [
+    "DunkDuel.Sim",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    { "name": "com.unity.render-pipelines.universal", "expression": "14.0.0", "define": "DD_URP" }
+  ],
+  "noEngineReferences": false
+}

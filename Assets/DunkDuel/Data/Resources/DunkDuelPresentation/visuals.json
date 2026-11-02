@@ -1,0 +1,17 @@
+{
+  "_note": "Fighter identity colors, exaggerated proportions (hands, shoulders, calves +10-20%) and effect motifs. Outfits are cosmetic unlocks (primary color variants).",
+  "fighters": [
+    { "id": "kofi", "primary": "#F4A21B", "secondary": "#1BA39C", "trim": "#1BA39C", "skin": "#5C3A22", "hair": "#1E140E", "hairTip": "#E8C048",
+      "shoes": "#F7F3E8", "rim": "#FFB13B", "motif": "#FFC24A", "motifKind": "solar", "hairStyle": "twists",
+      "shoulders": 1.14, "hands": 1.16, "calves": 1.12, "bulk": 0.95, "outfits": ["#F4A21B", "#F7F3E8", "#262626"] },
+    { "id": "meera", "primary": "#3F3D99", "secondary": "#C7CCD6", "trim": "#E0D2B0", "skin": "#8A5A3C", "hair": "#16110F", "hairTip": "#C7CCD6",
+      "shoes": "#E6E9EF", "rim": "#B9C4FF", "motif": "#9FB4FF", "motifKind": "storm", "hairStyle": "braid",
+      "shoulders": 1.08, "hands": 1.12, "calves": 1.1, "bulk": 0.9, "outfits": ["#3F3D99", "#E6E9EF", "#1E1E2A"] },
+    { "id": "juno", "primary": "#E0218A", "secondary": "#18D3E6", "trim": "#18D3E6", "skin": "#E3B796", "hair": "#E0218A", "hairTip": "#18D3E6",
+      "shoes": "#18D3E6", "rim": "#FF5AB4", "motif": "#18D3E6", "motifKind": "glitch", "hairStyle": "bob",
+      "shoulders": 1.05, "hands": 1.15, "calves": 1.08, "bulk": 0.85, "outfits": ["#E0218A", "#18D3E6", "#F2F2F2"] },
+    { "id": "matas", "primary": "#1E8F5A", "secondary": "#B0793A", "trim": "#B0793A", "skin": "#E2B58F", "hair": "#6B4A2E", "hairTip": "#6B4A2E",
+      "shoes": "#2A2A2A", "rim": "#5FE3A0", "motif": "#4FD28E", "motifKind": "seismic", "hairStyle": "short",
+      "shoulders": 1.2, "hands": 1.18, "calves": 1.15, "bulk": 1.25, "outfits": ["#1E8F5A", "#B0793A", "#202820"] }
+  ]
+}

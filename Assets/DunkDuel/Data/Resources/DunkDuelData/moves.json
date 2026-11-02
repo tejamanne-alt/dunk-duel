@@ -1,0 +1,53 @@
+{
+  "_note": "Common dribble moves and the basic swipe. Windows are [start, end) in move frames. A swipe started early enough to land on exposed frames steals; a commitment started inside the bait window bites. Bait windows start after the last frame a swipe could still steal, so a reach is never both.",
+  "crossover": {
+    "id": "crossover", "name": "Crossover", "kind": "shake", "behavior": "none",
+    "startup": 2, "active": 10, "recovery": 6,
+    "cancelStart": 10, "cancelEnd": 18,
+    "baitStart": 2, "baitEnd": 10,
+    "exposedStart": 3, "exposedEnd": 7,
+    "moveStart": 2, "moveEnd": 10, "moveDistance": "0.45",
+    "power": "22", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0
+  },
+  "stepback": {
+    "id": "stepback", "name": "Step-Back", "kind": "shake", "behavior": "none",
+    "startup": 2, "active": 10, "recovery": 8,
+    "cancelStart": 10, "cancelEnd": 20,
+    "baitStart": 1, "baitEnd": 10,
+    "exposedStart": 3, "exposedEnd": 6,
+    "moveStart": 2, "moveEnd": 12, "moveDistance": "-1.25",
+    "power": "18", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0
+  },
+  "spin": {
+    "id": "spin", "name": "Spin", "kind": "shake", "behavior": "none",
+    "startup": 3, "active": 12, "recovery": 7,
+    "cancelStart": 14, "cancelEnd": 22,
+    "baitStart": 4, "baitEnd": 12,
+    "exposedStart": 5, "exposedEnd": 9,
+    "moveStart": 3, "moveEnd": 13, "moveDistance": "0.85",
+    "power": "26", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0
+  },
+  "hesitation": {
+    "id": "hesitation", "name": "Hesitation", "kind": "shake", "behavior": "none",
+    "startup": 1, "active": 10, "recovery": 4,
+    "cancelStart": 6, "cancelEnd": 15,
+    "baitStart": 1, "baitEnd": 11,
+    "exposedStart": 4, "exposedEnd": 6,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "16", "reach": "0", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 0
+  },
+  "swipe": {
+    "id": "swipe", "name": "Swipe", "kind": "swipe", "behavior": "none",
+    "startup": 5, "active": 3, "recovery": 0,
+    "cancelStart": 0, "cancelEnd": 0,
+    "baitStart": 0, "baitEnd": 0,
+    "exposedStart": 0, "exposedEnd": 0,
+    "moveStart": 0, "moveEnd": 0, "moveDistance": "0",
+    "power": "0", "reach": "1.05", "minRange": "0", "maxRange": "0",
+    "canDrawCharge": false, "slipThrough": false, "whiffRecovery": 20
+  }
+}

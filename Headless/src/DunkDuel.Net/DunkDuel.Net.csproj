@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Rollback netcode and the ITransport contract. Sources: Assets/DunkDuel/Net. Depends on Sim only. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DunkDuel.Net</AssemblyName>
+    <RootNamespace>DunkDuel.Net</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(UnitySrc)Net\**\*.cs" LinkBase="Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DunkDuel.Sim\DunkDuel.Sim.csproj" />
+  </ItemGroup>
+</Project>
