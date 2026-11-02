@@ -104,8 +104,20 @@ timing error is a seeded near-normal spread per tier; reads use per-zone/shot-cl
 budget, single 9). The automated tuner adjusts only derived per-fighter data (jump-shot and finish gather frames, jump
 rise frames, reach factor, pushbox) and CPU style weights, with guards that keep Juno and Meera layup-only. It evaluates
 every candidate on identical match seeds. Reported numbers are CPU-vs-CPU proxies; human playtests confirm.
+Small samples overfit: a 150-match-per-side search that looked balanced on its own seeds (46-53%) measured 40-53%
+on the gate's 1,000-match run, so final passes use `--only <fighter>` with 700 matches per side and the result is
+always re-measured on the gate's separate seeds. The search moved CPU style weights noticeably (Kofi now drives far
+more than he shoots, Meera's shoot weight fell to 0.55 yet she still takes about 8 threes a match because her shot
+quality scores high); these are CPU personalities, not player rules, and are worth a designer's look.
 
-**D20. Finisher landing rate** is tuned to 75-80% through the 4-frame Denial window and CPU denial timing spread.
+**D20. Finisher landing rate** is tuned to 75-80% through the 4-frame Denial window and the CPU's denial timing
+spread (Legend 6.8 frames, All-Star 7.4). Legend-vs-Legend measures 77.4% landed.
+
+**D26. Match length.** **needs sign-off.** Legend-vs-Legend CPU matches average about 145 s, under the spec's
+4-5 minutes: CPU players shoot about 64% and rarely run the 8 s shot clock down. Option A: change nothing until
+human playtests measure real matches (humans miss more, hesitate and pause). Option B: lengthen rounds in data
+(`roundTargetPoints` 7 → 11 or `roundSeconds` 90 → 120), which changes the feel of every round. Recommendation: A,
+because the CPU numbers are a proxy; B is a one-line data change if human matches also come in short.
 
 ## Unity
 

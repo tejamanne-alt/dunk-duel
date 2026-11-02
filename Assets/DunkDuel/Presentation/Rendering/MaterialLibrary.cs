@@ -15,6 +15,7 @@ namespace DunkDuel.Presentation
 
         private readonly Dictionary<string, Material> _cache = new Dictionary<string, Material>();
         private readonly Material _litTemplate;
+        private readonly Material _emissiveTemplate;
         private readonly Material _unlitTemplate;
         private readonly Material _transparentTemplate;
         private readonly Material _additiveTemplate;
@@ -26,6 +27,10 @@ namespace DunkDuel.Presentation
         {
             IsUrp = GraphicsSettings.currentRenderPipeline != null;
             _litTemplate = LoadTemplate("Lit", IsUrp ? "Universal Render Pipeline/Lit" : "Standard", false, false);
+            // Lit with _EMISSION on: a build only keeps the shader variants its materials use, so runtime glows
+            // (emissive props, jersey flashes, floor glow) start from this template, not by toggling the keyword.
+            _emissiveTemplate = LoadTemplate("LitEmissive", IsUrp ? "Universal Render Pipeline/Lit" : "Standard", false, false);
+            if (!_emissiveTemplate.IsKeywordEnabled("_EMISSION")) SetEmission(_emissiveTemplate, Color.black); // fallback template only
             _unlitTemplate = LoadTemplate("Unlit", IsUrp ? "Universal Render Pipeline/Unlit" : "Unlit/Color", false, false);
             _transparentTemplate = LoadTemplate("Transparent", IsUrp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, false);
             _additiveTemplate = LoadTemplate("Additive", IsUrp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, true);
@@ -92,10 +97,10 @@ namespace DunkDuel.Presentation
             return m;
         }
 
-        /// <summary>A new, unshared lit material the caller may animate (sweat sheen, flashes).</summary>
+        /// <summary>A new, unshared lit material the caller may animate (sweat sheen, flashes, glow).</summary>
         public Material LitInstance(Color c, float smoothness = 0.25f)
         {
-            var m = new Material(_litTemplate) { name = "LitInst" };
+            var m = new Material(_emissiveTemplate) { name = "LitInst" };
             SetColor(m, c);
             SetSmoothness(m, smoothness);
             return m;
@@ -115,7 +120,7 @@ namespace DunkDuel.Presentation
         {
             string key = Key("emis", c, intensity, 0);
             if (_cache.TryGetValue(key, out Material m)) return m;
-            m = new Material(_litTemplate) { name = "Emissive_" + ColorUtility.ToHtmlStringRGB(c), enableInstancing = true };
+            m = new Material(_emissiveTemplate) { name = "Emissive_" + ColorUtility.ToHtmlStringRGB(c), enableInstancing = true };
             SetColor(m, c);
             SetEmission(m, c * intensity);
             _cache[key] = m;

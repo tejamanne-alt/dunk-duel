@@ -49,17 +49,19 @@ dotnet build Headless/DunkDuel.Headless.sln -c Release        # analyzers + warn
 dotnet test Headless/tests/DunkDuel.Tests                     # rules, determinism, static gates, netcode, BLE framing
 dotnet format whitespace Headless/DunkDuel.Headless.sln --verify-no-changes
 dotnet run --project Tools/SimTool -- hash --check            # SimBuildInfo.g.cs matches the sim sources
+dotnet run --project Tools/SimTool -- golden --check          # committed 10,000-tick replay matches sim + data
 ```
 
 After changing anything under `Assets/DunkDuel/Sim/`: `dotnet run --project Tools/SimTool -- hash` (regenerates the
 code hash; the Unity Editor also does it before every player build), then `-- golden` to refresh the 10,000-frame
-determinism replay.
+determinism replay. Data changes (any JSON under `DunkDuelData/`) also change the replay: run `-- golden` after them.
 
 Balance and diagnostics:
 
 ```bash
 dotnet run -c Release --project Tools/BalanceLab -- --matches 1000          # gate: every pairing within 45-55%, tiers rise
 dotnet run -c Release --project Tools/BalanceLab -- --tune 200 --matches 150 --apply   # automated data search
+dotnet run -c Release --project Tools/BalanceLab -- --tune 70 --matches 700 --only meera --apply   # targeted, larger samples
 dotnet run --project Tools/SimTool -- matchup meera juno 100                # why does a matchup go the way it does
 dotnet run --project Tools/SimTool -- trace kofi matas legend 42            # event log of one CPU match
 ```
@@ -85,8 +87,8 @@ Unity (6000.3 LTS): open the repo root as the project, run **DunkDuel ▸ Projec
 | --- | --- | --- |
 | Static | `IlGateTests` scans the compiled Sim IL/signatures; `StaticGateTests` scans sources and the asmdef | automated, green |
 | Rules | `ReadTests`, `RulesTests`, `ShotModelTests`, `FinisherTests` | automated, green |
-| Determinism | 10,000-frame replay (`DeterminismTests`, golden file); device check in the in-game developer menu | headless green; devices pending |
-| Balance Lab | `Tools/BalanceLab` (Legend tier, both sides, 45-55%) + tier ladder | see DECISIONS.md / latest report |
+| Determinism | 10,000-frame replay (`DeterminismTests`, golden file, `SimTool golden --check`); device check in the in-game developer menu | headless green; devices pending |
+| Balance Lab | `Tools/BalanceLab` (Legend tier, both sides, 45-55%) + tier ladder | green: pairings 47.0-51.9% over 2,000 matches each; each tier beats the one below 59-65%; Finishers land 78.3% |
 | Netcode soak | `NetTests` loopback soak under BLE-like latency/jitter/loss; real gate is 30 iPhone-Android matches | loopback green; devices pending |
 | Performance | p95 ≤ 16.6 ms on reference High/Mid phones, 10-min thermal soak ≥ 55 fps | device-only, pending |
 
@@ -103,4 +105,6 @@ Unity (6000.3 LTS): open the repo root as the project, run **DunkDuel ▸ Projec
 - `x?.Invoke(queue.Dequeue())` skips the argument when `x` is null — dequeue first (this hung both transports once).
 - The CPU sees a snapshot `ReactionFrames` old (never faster than 12), knows only its own fighter exactly, never reads
   the RNG or a shot's rolled outcome, and has its own RNG stream.
+- Tuner wins at 150 matches per side are partly noise it selected for (one run looked balanced at 46-53% and
+  measured 40-53% at 1,000). Always confirm with `--matches 1000` before committing tuned data.
 - Keep `DECISIONS.md` current: decision, options considered, reason.

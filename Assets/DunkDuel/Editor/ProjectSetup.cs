@@ -91,6 +91,7 @@ namespace DunkDuel.Editor
         {
             EnsureFolder(RenderingFolder);
             EnsureQualityLevels();
+            KeepRuntimeFogVariants();
 #if DD_URP
             string[] tiers = { "Low", "Mid", "High" };
             var assets = new UniversalRenderPipelineAsset[3];
@@ -143,6 +144,30 @@ namespace DunkDuel.Editor
             QualitySettings.SetQualityLevel(Mathf.Min(current, QualitySettings.names.Length - 1), false);
         }
 
+        /// <summary>
+        /// Courts switch exponential-squared fog on at runtime, but the Boot scene has none, so automatic fog
+        /// stripping would drop those shader variants from player builds. Keep exactly that mode.
+        /// </summary>
+        private static void KeepRuntimeFogVariants()
+        {
+            UnityEngine.Object[] objs = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/GraphicsSettings.asset");
+            if (objs == null || objs.Length == 0) return;
+            var so = new SerializedObject(objs[0]);
+            SetSerialized(so, "m_FogStripping", 1); // Custom
+            SetSerialized(so, "m_FogKeepLinear", 0);
+            SetSerialized(so, "m_FogKeepExp", 0);
+            SetSerialized(so, "m_FogKeepExp2", 1);
+            so.ApplyModifiedProperties();
+        }
+
+        private static void SetSerialized(SerializedObject so, string property, int value)
+        {
+            SerializedProperty p = so.FindProperty(property);
+            if (p == null) return;
+            if (p.propertyType == SerializedPropertyType.Boolean) p.boolValue = value != 0;
+            else p.intValue = value;
+        }
+
         /// <summary>Makes the first three quality levels Low, Mid, High (adds levels if needed).</summary>
         private static void EnsureQualityLevels()
         {
@@ -171,13 +196,14 @@ namespace DunkDuel.Editor
             EnsureFolder(MaterialsFolder);
             bool urp = GraphicsSettings.defaultRenderPipeline != null;
             CreateMaterial("Lit", urp ? "Universal Render Pipeline/Lit" : "Standard", false, false);
+            CreateMaterial("LitEmissive", urp ? "Universal Render Pipeline/Lit" : "Standard", false, false, true);
             CreateMaterial("Unlit", urp ? "Universal Render Pipeline/Unlit" : "Unlit/Color", false, false);
             CreateMaterial("Transparent", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, false);
             CreateMaterial("Additive", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, true);
             CreateMaterial("VertexColor", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", false, false);
         }
 
-        private static void CreateMaterial(string name, string shaderName, bool transparent, bool additive)
+        private static void CreateMaterial(string name, string shaderName, bool transparent, bool additive, bool emissive = false)
         {
             string path = MaterialsFolder + "/" + name + ".mat";
             if (AssetDatabase.LoadAssetAtPath<Material>(path) != null) return;
@@ -189,6 +215,12 @@ namespace DunkDuel.Editor
             }
             var m = new Material(shader) { name = name, enableInstancing = true };
             if (transparent) MaterialLibrary.MakeTransparent(m, additive);
+            if (emissive)
+            {
+                // Keeps the _EMISSION variant in player builds for materials that glow at runtime.
+                MaterialLibrary.SetEmission(m, Color.black);
+                m.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+            }
             AssetDatabase.CreateAsset(m, path);
         }
 

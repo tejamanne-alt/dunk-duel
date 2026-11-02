@@ -76,6 +76,7 @@ namespace DunkDuel.Tools
             public double Low = 45.0;
             public double High = 55.0;
             public int LadderMatches = 200;
+            public string[] Only;
         }
 
         public static int Main(string[] args)
@@ -86,7 +87,7 @@ namespace DunkDuel.Tools
             if (tuneIdx >= 0)
             {
                 int sweeps = tuneIdx + 1 < args.Length && int.TryParse(args[tuneIdx + 1], out int sw0) ? sw0 : 200;
-                return Tuner.Run(repo, o.Matches, sweeps, Array.IndexOf(args, "--apply") >= 0, o.Threads);
+                return Tuner.Run(repo, o.Matches, sweeps, Array.IndexOf(args, "--apply") >= 0, o.Threads, o.Only);
             }
             var data = new FolderDataSource(Path.Combine(repo, "Assets", "DunkDuel", "Data", "Resources", "DunkDuelData"));
             SimTables tables = SimTables.Load(data);
@@ -278,6 +279,7 @@ namespace DunkDuel.Tools
                     case "--no-ladder": o.Ladder = false; break;
                     case "--ladder-only": o.Pairings = false; break;
                     case "--json": o.Json = args[++i]; break;
+                    case "--only": o.Only = args[++i].Split(','); break;
                 }
             }
             return o;

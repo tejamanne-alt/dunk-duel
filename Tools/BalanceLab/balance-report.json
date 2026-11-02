@@ -1,0 +1,13 @@
+{
+  "pass": true,
+  "pairings": [
+    { "a": "kofi", "b": "meera", "aWinPct": 51.45 },
+    { "a": "kofi", "b": "juno", "aWinPct": 51.90 },
+    { "a": "kofi", "b": "matas", "aWinPct": 50.85 },
+    { "a": "meera", "b": "juno", "aWinPct": 50.10 },
+    { "a": "meera", "b": "matas", "aWinPct": 46.95 },
+    { "a": "juno", "b": "matas", "aWinPct": 50.10 }
+  ],
+  "finisherLandPct": 78.32,
+  "avgMatchSeconds": 144.6
+}

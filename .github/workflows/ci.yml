@@ -19,10 +19,13 @@ jobs:
         run: dotnet format whitespace Headless/DunkDuel.Headless.sln --verify-no-changes
       - name: Sim code hash is current
         run: dotnet run -c Release --project Tools/SimTool -- hash --check
+      - name: Golden 10,000-tick replay is current
+        run: dotnet run -c Release --project Tools/SimTool -- golden --check
       - name: Tests (rules, determinism, static gates, netcode soak, BLE framing)
         run: dotnet test Headless/tests/DunkDuel.Tests -c Release --no-build
       - name: Balance Lab gate
-        run: dotnet run -c Release --project Tools/BalanceLab -- --matches 500 --ladder-matches 400 --json balance.json
+        # The formal gate size: at 500 matches per side a pairing can read ~3 points off its 1,000-match value.
+        run: dotnet run -c Release --project Tools/BalanceLab -- --matches 1000 --ladder-matches 800 --json balance.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

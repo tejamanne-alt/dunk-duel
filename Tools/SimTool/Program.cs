@@ -106,12 +106,16 @@ namespace DunkDuel.Tools
 
         public static string GoldenDir(string repo) => Path.Combine(repo, "Assets", "DunkDuel", "Tests", "EditMode", "Data");
 
-        /// <summary>Deterministic CPU-vs-CPU match truncated to 10,000 ticks: the determinism gate's input.</summary>
+        /// <summary>
+        /// Deterministic CPU-vs-CPU match truncated to 10,000 ticks: the determinism gate's input. Best of five between
+        /// two Legends, so the match is still live at tick 10,000 (a best of three can end around 9,000).
+        /// </summary>
         public static Replay RecordGoldenReplay(SimTables tables, IDataSource data)
         {
             var setup = MatchSetup.Versus(tables.FighterIndex("kofi"), tables.FighterIndex("juno"), 0xD0D0CAFEUL);
+            setup.RoundsToWin = tables.T.Match.RoundsToWinBestOf5;
             var p0 = new CpuPlayer(tables, CpuTiers.Load(tables, data), CpuTier.Legend, 0, 1234);
-            var p1 = new CpuPlayer(tables, CpuTiers.Load(tables, data), CpuTier.Pro, 1, 5678);
+            var p1 = new CpuPlayer(tables, CpuTiers.Load(tables, data), CpuTier.Legend, 1, 5678);
             var session = new LocalSession(tables, setup, p0, p1);
             for (int t = 0; t < GoldenTicks && !session.IsOver; t++) session.Tick();
             Replay replay = session.Recorder.Replay;
@@ -130,10 +134,21 @@ namespace DunkDuel.Tools
                 return 1;
             }
             string dir = GoldenDir(repo);
-            Directory.CreateDirectory(dir);
-            File.WriteAllBytes(Path.Combine(dir, "golden_10000.ddreplay"), replay.ToBytes());
             string json = "{\n  \"simVersion\": \"" + SimBuildInfo.Version(tables).ToString("X16") + "\",\n  \"ticks\": " + replay.Ticks
                 + ",\n  \"finalHash\": \"" + check.FinalHash.ToString("X16") + "\",\n  \"chainHash\": \"" + check.ChainHash.ToString("X16") + "\"\n}\n";
+            if (Array.IndexOf(args, "--check") >= 0)
+            {
+                // Read-only: the committed replay and hashes must match what the current sim and data produce.
+                string jsonPath = Path.Combine(dir, "golden_10000.json");
+                string replayPath = Path.Combine(dir, "golden_10000.ddreplay");
+                bool same = File.Exists(jsonPath) && File.Exists(replayPath)
+                    && File.ReadAllText(jsonPath) == json
+                    && Convert.ToBase64String(File.ReadAllBytes(replayPath)) == Convert.ToBase64String(replay.ToBytes());
+                Console.WriteLine(same ? "golden replay OK 0x" + check.FinalHash.ToString("X16") : "golden replay is stale: run SimTool golden");
+                return same ? 0 : 1;
+            }
+            Directory.CreateDirectory(dir);
+            File.WriteAllBytes(Path.Combine(dir, "golden_10000.ddreplay"), replay.ToBytes());
             File.WriteAllText(Path.Combine(dir, "golden_10000.json"), json);
             Console.WriteLine("golden replay: " + replay.Ticks + " ticks, final 0x" + check.FinalHash.ToString("X16") + ", chain 0x" + check.ChainHash.ToString("X16"));
             return 0;

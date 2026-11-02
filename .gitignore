@@ -11,6 +11,8 @@
 /Assets/Plugins/Editor/JetBrains*
 /Assets/AddressableAssetsData/*/*.bin*
 /Assets/StreamingAssets/aa*
+# Copied into the build by the Editor's pre-build step (golden replay for the on-device check)
+/Assets/DunkDuel/Data/Resources/DunkDuelDev/
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta

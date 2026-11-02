@@ -16,6 +16,8 @@ namespace DunkDuel.Tools
     /// Automated balance search (pattern search with shrinking steps) over per-fighter data knobs and CPU style
     /// weights. Every evaluation replays identical match seeds (common random numbers), so a change in the loss
     /// comes from the data. Loss = sum over pairings of (win% - 50)^2. --apply writes the best values back.
+    /// --only kofi,meera restricts the knobs to those fighters; pairings without them never change, so they are
+    /// played once and cached, which makes larger (less noisy) samples affordable for a targeted fix.
     /// </summary>
     public static class Tuner
     {
@@ -35,7 +37,7 @@ namespace DunkDuel.Tools
             public string Name => Fighter + "." + Key;
         }
 
-        public static int Run(string repo, int matchesPerSide, int maxEvals, bool apply, int threads)
+        public static int Run(string repo, int matchesPerSide, int maxEvals, bool apply, int threads, string[] only = null)
         {
             string dataDir = Path.Combine(repo, "Assets", "DunkDuel", "Data", "Resources", "DunkDuelData");
             var files = new Dictionary<string, string>();
@@ -43,9 +45,15 @@ namespace DunkDuel.Tools
             string[] fighters = { "kofi", "meera", "juno", "matas" };
             foreach (string f in fighters) files["fighters/" + f] = File.ReadAllText(Path.Combine(dataDir, "fighters", f + ".json"));
 
+            var tuned = new HashSet<string>(only ?? fighters);
+            foreach (string f in tuned)
+            {
+                if (Array.IndexOf(fighters, f) < 0) throw new ArgumentException("unknown fighter in --only: " + f);
+            }
             var knobs = new List<Knob>();
             foreach (string f in fighters)
             {
+                if (!tuned.Contains(f)) continue;
                 // Design guard: the two guards stay layup-only (shorter jump and reach caps).
                 bool guard = f == "juno" || f == "meera";
                 knobs.Add(FighterKnob(files, f, "jumperGatherFrames", true, 3, 1, 20, 42));
@@ -58,7 +66,8 @@ namespace DunkDuel.Tools
             }
 
             int evals = 0;
-            double best = Evaluate(files, fighters, knobs, matchesPerSide, threads, out double[] rates);
+            var cache = new Dictionary<int, double>();
+            double best = Evaluate(files, fighters, knobs, matchesPerSide, threads, tuned, cache, out double[] rates);
             evals++;
             Console.WriteLine($"start loss {best:F1}  {Rates(fighters, rates)}");
             ulong order = 12345;
@@ -83,7 +92,7 @@ namespace DunkDuel.Tools
                         decimal v = original + dir * k.Step;
                         if (v < k.Min || v > k.Max) continue;
                         k.Value = v;
-                        double loss = Evaluate(files, fighters, knobs, matchesPerSide, threads, out double[] r);
+                        double loss = Evaluate(files, fighters, knobs, matchesPerSide, threads, tuned, cache, out double[] r);
                         evals++;
                         if (loss < best - 2.0)
                         {
@@ -166,7 +175,8 @@ namespace DunkDuel.Tools
             return text;
         }
 
-        private static double Evaluate(Dictionary<string, string> files, string[] fighters, List<Knob> knobs, int perSide, int threads, out double[] rates)
+        private static double Evaluate(Dictionary<string, string> files, string[] fighters, List<Knob> knobs, int perSide, int threads,
+            HashSet<string> tuned, Dictionary<int, double> cache, out double[] rates)
         {
             var src = new MemoryDataSource();
             foreach (string key in files.Keys) src.Add(key, Patched(files, key, knobs));
@@ -179,6 +189,14 @@ namespace DunkDuel.Tools
             {
                 for (int b = a + 1; b < n; b++)
                 {
+                    int pair = a * n + b;
+                    bool fixedPair = !tuned.Contains(fighters[a]) && !tuned.Contains(fighters[b]);
+                    if (fixedPair && cache.TryGetValue(pair, out double known))
+                    {
+                        list.Add(known);
+                        loss += (known - 50) * (known - 50);
+                        continue;
+                    }
                     long wins = 0;
                     int total = perSide * 2;
                     int fa = a, fb = b;
@@ -196,6 +214,7 @@ namespace DunkDuel.Tools
                         if (session.State.MatchWinner == (swap ? 1 : 0)) Interlocked.Increment(ref wins);
                     });
                     double rate = 100.0 * wins / total;
+                    if (fixedPair) cache[pair] = rate;
                     list.Add(rate);
                     loss += (rate - 50) * (rate - 50);
                 }

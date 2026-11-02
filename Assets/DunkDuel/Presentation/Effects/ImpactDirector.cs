@@ -276,6 +276,7 @@ namespace DunkDuel.Presentation
                 case "pop": _heat.AddHighlight(0.15f); _audio?.Cheer(false); break;
                 case "erupt": _heat.AddHighlight(0.3f); _audio?.Cheer(true); break;
                 case "frenzy": _heat.AddHighlight(0.5f); _audio?.Cheer(true); break;
+                case "groan": _heat.AddHighlight(-0.2f); break; // the groan itself plays from AudioDirector.OnSimEvent
             }
         }
 

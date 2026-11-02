@@ -11,14 +11,14 @@ nine courts.
 
 | Area | Where | State |
 | --- | --- | --- |
-| Deterministic sim: rules, the Read, shots, ball, meters, 12 Signature Tricks, 4 Finishers + Denial, rounds, hit-stop | `Assets/DunkDuel/Sim` | done, 123 tests green headless |
+| Deterministic sim: rules, the Read, shots, ball, meters, 12 Signature Tricks, 4 Finishers + Denial, rounds, hit-stop | `Assets/DunkDuel/Sim` | done, 124 tests green headless |
 | Data: every gameplay number | `Assets/DunkDuel/Data/Resources/DunkDuelData/*.json` | done |
 | CPU (Rookie → Legend, habits, Rival mode, personalities) | `Assets/DunkDuel/AI` | done |
 | Rollback netcode, handshake, desync recovery, reconnect | `Assets/DunkDuel/Net` | done, loopback soak green |
 | BLE transport (Swift CoreBluetooth, Kotlin Android BLE, C# bridge) | `Assets/DunkDuel/Transport.BLE`, `Assets/Plugins` | written; C# and Kotlin compile-checked; needs devices |
 | LAN UDP transport | `Assets/DunkDuel/Transport.LAN` | done, localhost test green |
 | Unity presentation, HUD, touch/gamepad, menus, modes, editor tooling | `Assets/DunkDuel/Presentation`, `UI`, `Editor` | written; needs a first open in Unity |
-| Balance Lab + automated tuner | `Tools/BalanceLab` | done |
+| Balance Lab + automated tuner | `Tools/BalanceLab` | done, gate passes: every pairing 47-52% at Legend |
 | Web graybox (the real sim in WebAssembly) | `Tools/WebGraybox` | done |
 | Blender pipeline (export/validate, VAT crowds, LODs, graybox) | `Tools/Blender` | done, tested with headless Blender 4.5 |
 
@@ -49,6 +49,7 @@ Open in Unity 6.3 LTS: add the repo root in Unity Hub, open it, run **DunkDuel �
 - `CLAUDE.md` — working agreement: non-negotiables, layout, commands, gates, pitfalls.
 - `DECISIONS.md` — every decision with the options considered and why; items marked *needs sign-off*.
 - `SPIKES.md` — P0 device spikes (BLE echo, cross-device determinism, look-dev slice) and headless proxies.
+- `Tools/BalanceLab/balance-report.json` — the latest 1,000-match Balance Lab gate result.
 - `Tools/Blender/README.md`, `Assets/DunkDuel/Transport.BLE/README.md` — pipeline and transport details.
 
 All characters, courts, names and designs are original.

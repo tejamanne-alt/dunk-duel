@@ -48,7 +48,7 @@ the Swift bridge has not been compiled (CoreBluetooth needs Apple's toolchain).
 
 | Runtime | Final hash | Result |
 | --- | --- | --- |
-| .NET 8 headless (x64) | see `golden_10000.json` | PASS (`GoldenReplayMatchesCommittedHash`) |
+| .NET 8 headless (x64) | `258A81EDC8A79206` | PASS (`GoldenReplayMatchesCommittedHash`) |
 | Unity EditMode | | |
 | iPhone | | |
 | Android | | |
