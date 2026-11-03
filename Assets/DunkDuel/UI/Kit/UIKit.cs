@@ -280,6 +280,11 @@ namespace DunkDuel.UI
             return (RectTransform)go.transform;
         }
 
+        /// <summary>Stretches past the safe area to the physical screen edges (notch, home indicator), for backgrounds.</summary>
+        public static RectTransform Bleed(RectTransform rt) => Stretch(rt, -BleedMargin, -BleedMargin, -BleedMargin, -BleedMargin);
+
+        private const float BleedMargin = 600f; // canvas units; larger than any device's safe-area inset
+
         public static RectTransform Stretch(RectTransform rt, float left = 0, float top = 0, float right = 0, float bottom = 0)
         {
             rt.anchorMin = Vector2.zero;

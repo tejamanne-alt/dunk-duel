@@ -85,7 +85,7 @@ namespace DunkDuel.Editor
 
         // ------------------------------------------------------------------ rendering
 
-        private static void ConfigureRendering()
+        internal static void ConfigureRendering()
         {
             EnsureFolder(RenderingFolder);
             EnsureQualityLevels();
@@ -188,23 +188,43 @@ namespace DunkDuel.Editor
 
         // ------------------------------------------------------------------ materials
 
+        /// <summary>A render pipeline asset is active (the URP assets made by <see cref="ConfigureRendering"/>).</summary>
+        internal static bool UsesUrp => GraphicsSettings.defaultRenderPipeline != null || QualitySettings.renderPipeline != null;
+
+        /// <summary>Template name and the shader it must use under the active pipeline.</summary>
+        internal static readonly string[] TemplateNames = { "Lit", "LitEmissive", "Unlit", "Transparent", "Additive", "VertexColor" };
+
+        internal static string TemplateShader(string name, bool urp)
+        {
+            switch (name)
+            {
+                case "Lit":
+                case "LitEmissive": return urp ? "Universal Render Pipeline/Lit" : "Standard";
+                case "Unlit": return urp ? "Universal Render Pipeline/Unlit" : "Unlit/Color";
+                default: return urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default";
+            }
+        }
+
         /// <summary>Template materials in Resources guarantee the shaders ship in player builds.</summary>
-        private static void CreateMaterialTemplates()
+        internal static void CreateMaterialTemplates()
         {
             EnsureFolder(MaterialsFolder);
-            bool urp = GraphicsSettings.defaultRenderPipeline != null;
-            CreateMaterial("Lit", urp ? "Universal Render Pipeline/Lit" : "Standard", false, false);
-            CreateMaterial("LitEmissive", urp ? "Universal Render Pipeline/Lit" : "Standard", false, false, true);
-            CreateMaterial("Unlit", urp ? "Universal Render Pipeline/Unlit" : "Unlit/Color", false, false);
-            CreateMaterial("Transparent", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, false);
-            CreateMaterial("Additive", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", true, true);
-            CreateMaterial("VertexColor", urp ? "Universal Render Pipeline/Particles/Unlit" : "Sprites/Default", false, false);
+            bool urp = UsesUrp;
+            CreateMaterial("Lit", TemplateShader("Lit", urp), false, false);
+            CreateMaterial("LitEmissive", TemplateShader("LitEmissive", urp), false, false, true);
+            CreateMaterial("Unlit", TemplateShader("Unlit", urp), false, false);
+            CreateMaterial("Transparent", TemplateShader("Transparent", urp), true, false);
+            CreateMaterial("Additive", TemplateShader("Additive", urp), true, true);
+            CreateMaterial("VertexColor", TemplateShader("VertexColor", urp), false, false);
         }
 
         private static void CreateMaterial(string name, string shaderName, bool transparent, bool additive, bool emissive = false)
         {
             string path = MaterialsFolder + "/" + name + ".mat";
-            if (AssetDatabase.LoadAssetAtPath<Material>(path) != null) return;
+            Material existing = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (existing != null && existing.shader != null && existing.shader.name == shaderName) return;
+            // A template made before URP was active (built-in shader) renders magenta under URP: rebuild it.
+            if (existing != null) AssetDatabase.DeleteAsset(path);
             Shader shader = Shader.Find(shaderName);
             if (shader == null)
             {

@@ -137,6 +137,13 @@ Options: (A) pin the Team ID; (B) leave signing to Xcode, the manual step being 
 certificate's OU) from the Mac's keychain at build time. C shipped briefly while the ID was unknown; A replaced it:
 it works on every machine, including CI, and runs no external tool from the Editor.
 
+**D28. Rendering setup is checked before every build.** The first device build rendered everything magenta: the
+runtime materials are cloned from template materials in Resources (so their shaders ship), and those templates were
+missing or made with built-in shaders before URP was active. Options: (A) document "run Project Setup first";
+(B) put the URP shaders in Always Included Shaders, which compiles every variant and bloats builds; (C) check and repair
+the URP assignment and templates on Editor load and before every build, failing the build if repair is impossible.
+Chosen: C (`RenderingGuard`), plus a runtime error naming any missing template.
+
 ## Tools
 
 **D23. Web graybox.** The real Sim + AI compiled to WebAssembly with a canvas front end, for instant playtests, shared

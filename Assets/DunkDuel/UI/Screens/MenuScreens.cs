@@ -16,7 +16,7 @@ namespace DunkDuel.UI
         protected void Frame(RectTransform root, string title)
         {
             Image bg = UIKit.Panel(root, "Bg", Theme.Bg, false);
-            UIKit.Stretch(bg.rectTransform);
+            UIKit.Bleed(bg.rectTransform);
             UIText t = UIKit.Label(root, title, 64, TextAlign.Left, Theme.Accent, true);
             UIKit.Place(t.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(160f, -30f), new Vector2(1500f, 90f));
             Button back = UIKit.Button(root, "<", () => App.Nav.Pop(), 110, 90, Theme.PanelLight, 48);
@@ -32,10 +32,12 @@ namespace DunkDuel.UI
 
         protected override void Build(RectTransform root)
         {
-            Image bg = UIKit.Panel(root, "Bg", new Color(0.04f, 0.045f, 0.06f, 0.92f), false);
-            UIKit.Stretch(bg.rectTransform);
-            UIText title = UIKit.Label(root, "DUNK DUEL", 150, TextAlign.Left, Theme.Accent, true);
-            UIKit.Place(title.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(110f, -90f), new Vector2(1100f, 200f));
+            Image bg = UIKit.Panel(root, "Bg", new Color(0.04f, 0.045f, 0.06f, 1f), false);
+            UIKit.Bleed(bg.rectTransform);
+            // Fits a 1080-unit-tall safe area (an iPhone in landscape leaves about 1,020): title 40-180, tagline
+            // 180-230, seven 76-unit buttons from 260 to 878.
+            UIText title = UIKit.Label(root, "DUNK DUEL", 120, TextAlign.Left, Theme.Accent, true);
+            UIKit.Place(title.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(80f, -40f), new Vector2(1100f, 140f));
             Button devHotspot = UIKit.Button(root, "", () =>
             {
                 if (++_devTaps >= 5)
@@ -44,19 +46,20 @@ namespace DunkDuel.UI
                     App.Nav.Push(new DevMenuScreen());
                 }
             }, 300, 160, new Color(0f, 0f, 0f, 0f), 10);
-            UIKit.Place((RectTransform)devHotspot.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(110f, -110f), new Vector2(300f, 160f));
-            UIText sub = UIKit.Label(root, Loc.T("menu.tagline", "1v1 streetball. Every possession is a duel."), 40, TextAlign.Left, Theme.Dim);
-            UIKit.Place(sub.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(116f, -290f), new Vector2(1100f, 60f));
+            UIKit.Place((RectTransform)devHotspot.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(80f, -40f), new Vector2(300f, 140f));
+            UIText sub = UIKit.Label(root, Loc.T("menu.tagline", "1v1 streetball. Every possession is a duel."), 36, TextAlign.Left, Theme.Dim);
+            UIKit.Place(sub.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(86f, -180f), new Vector2(1100f, 50f));
 
-            RectTransform col = UIKit.VStack(root, "Menu", 18, 0, TextAnchor.UpperLeft);
-            UIKit.Place(col, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(110f, -380f), new Vector2(700f, 700f));
-            UIKit.Button(col, Loc.T("menu.duel", "Bluetooth Duel"), () => App.Nav.Push(new LobbyScreen()), 620, 92, Theme.Accent * 0.75f + Color.black * 0.25f);
-            UIKit.Button(col, Loc.T("menu.quick", "Quick Match"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Quick })), 620, 92);
-            UIKit.Button(col, Loc.T("menu.crown", "Road to The Crown"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Ladder })), 620, 92);
-            UIKit.Button(col, Loc.T("menu.school", "Court School"), () => App.Nav.Push(new CourtSchoolScreen()), 620, 92);
-            UIKit.Button(col, Loc.T("menu.training", "Training"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Training })), 620, 92);
-            UIKit.Button(col, Loc.T("menu.replays", "Replays"), () => App.Nav.Push(new ReplaysScreen()), 620, 92);
-            UIKit.Button(col, Loc.T("menu.settings", "Settings"), () => App.Nav.Push(new SettingsScreen()), 620, 92);
+            const float w = 600f, h = 76f, font = 36f;
+            RectTransform col = UIKit.VStack(root, "Menu", 14, 0, TextAnchor.UpperLeft);
+            UIKit.Place(col, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(80f, -260f), new Vector2(w, 7 * h + 6 * 14));
+            UIKit.Button(col, Loc.T("menu.duel", "Bluetooth Duel"), () => App.Nav.Push(new LobbyScreen()), w, h, Theme.Accent * 0.75f + Color.black * 0.25f, font);
+            UIKit.Button(col, Loc.T("menu.quick", "Quick Match"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Quick })), w, h, null, font);
+            UIKit.Button(col, Loc.T("menu.crown", "Road to The Crown"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Ladder })), w, h, null, font);
+            UIKit.Button(col, Loc.T("menu.school", "Court School"), () => App.Nav.Push(new CourtSchoolScreen()), w, h, null, font);
+            UIKit.Button(col, Loc.T("menu.training", "Training"), () => App.Nav.Push(new FighterSelectScreen(new Selection { Kind = MatchKind.Training })), w, h, null, font);
+            UIKit.Button(col, Loc.T("menu.replays", "Replays"), () => App.Nav.Push(new ReplaysScreen()), w, h, null, font);
+            UIKit.Button(col, Loc.T("menu.settings", "Settings"), () => App.Nav.Push(new SettingsScreen()), w, h, null, font);
 
             UIText cred = UIKit.Label(root, Loc.F("menu.cred", App.Progress.Cred), 34, TextAlign.Right, Theme.Accent, true);
             UIKit.Place(cred.Rect, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-40f, 30f), new Vector2(600f, 60f));
@@ -105,8 +108,8 @@ namespace DunkDuel.UI
                 FighterStats st = t.Fighters[i];
                 FighterVisual vis = App.Data.Visual(st.Def.Id);
                 Image card = UIKit.Panel(row, "Card_" + st.Def.Id, Theme.Panel);
-                card.rectTransform.sizeDelta = new Vector2(430f, 860f);
-                UIKit.Layout(card, 430, 860);
+                card.rectTransform.sizeDelta = new Vector2(430f, 800f); // fits an iPhone safe area (about 850 units under the title)
+                UIKit.Layout(card, 430, 800);
                 Image stripe = UIKit.Panel(card.transform, "Stripe", vis.Primary);
                 UIKit.Place(stripe.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -10f), new Vector2(410f, 16f));
                 UIText name = UIKit.Label(card.transform, st.Def.Nickname.ToUpperInvariant(), 52, TextAlign.Top, vis.Primary, true);
@@ -128,7 +131,7 @@ namespace DunkDuel.UI
                     + "> " + st.Def.TrickForward.Name + "\n< " + st.Def.TrickBack.Name + "\nD " + st.Def.TrickDefense.Name + "\n"
                     + Loc.T("select.finisher", "Finisher") + ": " + st.Def.Finisher.Name;
                 UIText trickText = UIKit.Label(card.transform, tricks, 26, TextAlign.TopLeft, Theme.Text);
-                UIKit.Place(trickText.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(26f, -450f), new Vector2(380f, 260f));
+                UIKit.Place(trickText.Rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(26f, -450f), new Vector2(380f, 220f));
                 Button pick = UIKit.Button(card.transform, Loc.T("select.pick", "Pick"), () => Pick(idx), 380, 90, vis.Primary * 0.7f + Color.black * 0.3f);
                 UIKit.Place((RectTransform)pick.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(380f, 90f));
             }

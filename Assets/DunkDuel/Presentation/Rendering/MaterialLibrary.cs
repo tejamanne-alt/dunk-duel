@@ -40,7 +40,11 @@ namespace DunkDuel.Presentation
         private Material LoadTemplate(string name, string shaderName, bool transparent, bool additive)
         {
             Material m = Resources.Load<Material>(TemplateRoot + name);
-            if (m != null) return m;
+            if (m != null && m.shader != null && m.shader.isSupported) return m;
+            // Player builds only contain shaders that some shipped material uses, so without the template the
+            // lookups below usually fail and everything renders with the magenta error shader.
+            Debug.LogError("Dunk Duel: material template " + name + (m == null ? " is missing from Resources" : " has an unsupported shader " + m.shader?.name)
+                + ". Open the project in the Editor (DunkDuel > Project Setup) and rebuild.");
             Shader shader = Shader.Find(shaderName);
             if (shader == null) shader = Shader.Find(IsUrp ? "Universal Render Pipeline/Unlit" : "Unlit/Color");
             if (shader == null) shader = Shader.Find("Hidden/InternalErrorShader");
