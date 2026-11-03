@@ -673,26 +673,40 @@ extension DunkDuelBLE: CBPeripheralDelegate {
 // MARK: - L2CAP (experimental; INPUT only, CONTROL always stays on GATT to keep its ordering)
 
 extension DunkDuelBLE: StreamDelegate {
+    /// The channel's two streams, or nil if it has none. CoreBluetooth has declared them as implicitly unwrapped,
+    /// optional or non-optional depending on the SDK. Assigning to an explicit optional compiles under all three, and
+    /// every access goes through here, so nothing is force-unwrapped. (A plain `let out = ch.outputStream` turns an
+    /// implicitly unwrapped property into an optional, which broke the iOS build.)
+    private static func streams(of ch: CBL2CAPChannel) -> (input: InputStream, output: OutputStream)? {
+        let input: InputStream? = ch.inputStream
+        let output: OutputStream? = ch.outputStream
+        guard let i = input, let o = output else { return nil }
+        return (input: i, output: o)
+    }
+
     private func openL2cap(_ ch: CBL2CAPChannel) {
         closeL2cap()
+        guard let s = DunkDuelBLE.streams(of: ch) else { return } // no streams: INPUT stays on GATT
         l2capChannel = ch
-        ch.inputStream.delegate = self
-        ch.outputStream.delegate = self
-        ch.inputStream.schedule(in: .main, forMode: .default)
-        ch.outputStream.schedule(in: .main, forMode: .default)
-        ch.inputStream.open()
-        ch.outputStream.open()
+        s.input.delegate = self
+        s.output.delegate = self
+        s.input.schedule(in: .main, forMode: .default)
+        s.output.schedule(in: .main, forMode: .default)
+        s.input.open()
+        s.output.open()
         l2capReady = true
     }
 
     private func closeL2cap() {
         guard let ch = l2capChannel else { return }
-        ch.inputStream.close()
-        ch.outputStream.close()
-        ch.inputStream.remove(from: .main, forMode: .default)
-        ch.outputStream.remove(from: .main, forMode: .default)
-        ch.inputStream.delegate = nil
-        ch.outputStream.delegate = nil
+        if let s = DunkDuelBLE.streams(of: ch) {
+            s.input.close()
+            s.output.close()
+            s.input.remove(from: .main, forMode: .default)
+            s.output.remove(from: .main, forMode: .default)
+            s.input.delegate = nil
+            s.output.delegate = nil
+        }
         l2capChannel = nil
         l2capReady = false
         l2capIn.removeAll()
@@ -700,12 +714,12 @@ extension DunkDuelBLE: StreamDelegate {
     }
 
     func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-        guard let ch = l2capChannel else { return }
+        guard let ch = l2capChannel, let s = DunkDuelBLE.streams(of: ch) else { return }
         switch eventCode {
         case .hasBytesAvailable:
             var buf = [UInt8](repeating: 0, count: 1024)
-            while ch.inputStream.hasBytesAvailable {
-                let n = ch.inputStream.read(&buf, maxLength: buf.count)
+            while s.input.hasBytesAvailable {
+                let n = s.input.read(&buf, maxLength: buf.count)
                 if n <= 0 { break }
                 l2capIn.append(buf, count: n)
             }
@@ -742,8 +756,7 @@ extension DunkDuelBLE: StreamDelegate {
     }
 
     private func pumpL2cap() {
-        guard let ch = l2capChannel else { return }
-        let out = ch.outputStream
+        guard let ch = l2capChannel, let out = DunkDuelBLE.streams(of: ch)?.output else { return }
         while !l2capOut.isEmpty && out.hasSpaceAvailable {
             let written = l2capOut.withUnsafeBytes { (raw: UnsafeRawBufferPointer) -> Int in
                 guard let base = raw.bindMemory(to: UInt8.self).baseAddress else { return 0 }

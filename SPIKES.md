@@ -37,7 +37,8 @@ both phones, 10 full matches per row, 3 % INPUT loss:
 Desync detection and recovery (host streams state in 160-byte chunks, guest resimulates) and the 3 s pause /
 20 s reconnect window are covered by `NetTests`. The BLE C# layer (framing, records, heartbeat, SPSC ring, transport
 state machine over a loopback backend) is covered by 42 tests; the Kotlin bridge compiles against android-all 14;
-the Swift bridge has not been compiled (CoreBluetooth needs Apple's toolchain).
+the Swift bridge cannot be compiled here (CoreBluetooth needs Apple's toolchain): the first Xcode device build
+reported two L2CAP stream errors, since fixed, and the next device build confirms it.
 
 ## 2. Cross-device determinism
 

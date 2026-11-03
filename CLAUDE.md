@@ -80,6 +80,9 @@ headless. Usage per script is in `Tools/Blender/README.md`.
 Unity (6000.3 LTS): open the repo root as the project, run **DunkDuel ▸ Project Setup** once (or
 `-batchmode -executeMethod DunkDuel.Editor.ProjectSetup.Run`), then EditMode tests in the Test Runner. Unity creates
 `.meta` files on first import: commit them. Never hand-edit scene or prefab YAML; build through Editor APIs.
+App identity lives in `Editor/AppIdentity.cs`: bundle ID / Android package `com.astradite.dunkduel`, iOS automatic
+signing with the Teja Manne team (Team ID pinned there, or read from the Mac's signing certificate and saved in
+Player Settings). Commit `ProjectSettings/*.asset` after the first open so the resolved settings travel with the repo.
 
 ## Gates
 

@@ -37,6 +37,8 @@ Bluetooth Low Energy implementation of `DunkDuel.Net.ITransport` for iPhone–An
 
 Verified headless: framing, advertisement parsing, the SPSC ring under two threads, and the full transport
 state machine against the loopback backend (Tests/); the Kotlin bridge compiles against the Android 14
-framework classes and its JNI signatures match `AndroidBleBackend`. Not verifiable without devices: the Swift
-bridge (no CoreBluetooth off Apple platforms), real radio behaviour (MTU, connection interval, flow control,
+framework classes and its JNI signatures match `AndroidBleBackend`. The Swift bridge cannot be compiled off Apple
+platforms; the first Xcode device build found two errors in the L2CAP stream code (an implicitly unwrapped
+`outputStream` copied into a plain optional), now fixed by unwrapping every stream access in one helper, and all 12
+`__Internal` functions match their C# `DllImport` names and types. Not verifiable without devices: real radio behaviour (MTU, connection interval, flow control,
 iOS↔Android quirks), permission dialogs, and the L2CAP path. The P0 radio spike covers these.

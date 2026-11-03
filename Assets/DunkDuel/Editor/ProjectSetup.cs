@@ -24,7 +24,6 @@ namespace DunkDuel.Editor
         public const string BootScenePath = "Assets/DunkDuel/Scenes/Boot.unity";
         public const string RenderingFolder = "Assets/DunkDuel/Rendering";
         public const string MaterialsFolder = "Assets/DunkDuel/Data/Resources/DunkDuelPresentation/Materials";
-        public const string BundleId = "com.dunkduel.game";
 
         [MenuItem("DunkDuel/Project Setup", false, 0)]
         public static void RunFromMenu()
@@ -54,8 +53,7 @@ namespace DunkDuel.Editor
         {
             PlayerSettings.companyName = "Dunk Duel";
             PlayerSettings.productName = "Dunk Duel";
-            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, BundleId);
-            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, BundleId);
+            AppIdentity.Apply(true); // com.astradite.dunkduel, automatic signing with the Teja Manne team
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.AutoRotation;
             PlayerSettings.allowedAutorotateToPortrait = false;
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;

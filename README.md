@@ -15,7 +15,7 @@ nine courts.
 | Data: every gameplay number | `Assets/DunkDuel/Data/Resources/DunkDuelData/*.json` | done |
 | CPU (Rookie → Legend, habits, Rival mode, personalities) | `Assets/DunkDuel/AI` | done |
 | Rollback netcode, handshake, desync recovery, reconnect | `Assets/DunkDuel/Net` | done, loopback soak green |
-| BLE transport (Swift CoreBluetooth, Kotlin Android BLE, C# bridge) | `Assets/DunkDuel/Transport.BLE`, `Assets/Plugins` | written; C# and Kotlin compile-checked; needs devices |
+| BLE transport (Swift CoreBluetooth, Kotlin Android BLE, C# bridge) | `Assets/DunkDuel/Transport.BLE`, `Assets/Plugins` | written; C# and Kotlin compile-checked, Swift compiled by Xcode (2 errors fixed, rebuild pending); needs devices |
 | LAN UDP transport | `Assets/DunkDuel/Transport.LAN` | done, localhost test green |
 | Unity presentation, HUD, touch/gamepad, menus, modes, editor tooling | `Assets/DunkDuel/Presentation`, `UI`, `Editor` | written; needs a first open in Unity |
 | Balance Lab + automated tuner | `Tools/BalanceLab` | done, gate passes: every pairing 47-52% at Legend |
@@ -43,6 +43,8 @@ dotnet run -c Release --project Tools/BalanceLab -- --matches 1000
 ```
 
 Open in Unity 6.3 LTS: add the repo root in Unity Hub, open it, run **DunkDuel ▸ Project Setup**, press Play.
+Builds are preset to bundle ID / package `com.astradite.dunkduel` and, for iOS, automatic signing with the Teja Manne
+team (`Assets/DunkDuel/Editor/AppIdentity.cs`). iOS: **DunkDuel ▸ Build ▸ iOS**, then open `Builds/iOS/Unity-iPhone.xcodeproj`.
 
 ## Documents
 

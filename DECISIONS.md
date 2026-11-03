@@ -128,6 +128,16 @@ the Boot scene, URP quality assets and player settings through Editor APIs. Opti
 **D22. `.meta` files are not committed by the build agent.** Unity generates them on first import; commit them then.
 asmdefs reference each other by name, so no GUIDs are needed.
 
+**D27. App identity and iOS signing defaults.** Bundle ID and Android package `com.astradite.dunkduel`; iOS automatic
+signing with the Teja Manne developer team. `AppIdentity` applies them in Project Setup, on Editor load and before
+every iOS/Android build, replacing only empty or placeholder values so a deliberate Player Settings change survives.
+Xcode needs the 10-character Team ID, which is not the code in the certificate name ("Apple Development: Teja Manne
+(BX42AX95QW)" carries a per-person certificate ID; the Team ID is the certificate's OU). Options: (A) hard-code a
+Team ID, which needed a value we did not have; (B) leave signing to Xcode, which is the manual step being removed;
+(C) read the OU of this Mac's "Teja Manne" signing certificates with `security find-certificate` (public
+certificates only, no keychain prompt) and save it in Player Settings, with `AppIdentity.AppleTeamId` to pin it.
+Chosen: C, falling back to a clear Console warning when no single team is found.
+
 ## Tools
 
 **D23. Web graybox.** The real Sim + AI compiled to WebAssembly with a canvas front end, for instant playtests, shared
